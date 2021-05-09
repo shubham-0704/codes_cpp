@@ -1,4 +1,5 @@
 #include <iostream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -335,11 +336,37 @@ int solve(int n,int k,vector<int>&v,int index){
 }
 // efficient approach
 //  in this we use recurison by shifting  the position 
+/*let n=5 k= 3;
+   a b c d e   1st round  c wil die 
+   0 1 2 3 4
+
+   a b d e  -->  also written as d e a b  we shift to make equation j(n,k)= j(n-1,k)+k
+   0 1 3 4        added + k to componesate for the shift 
+
+   d e a b  -->  (0+3)%5=3 which gives postion of d in prevoius order  
+   0 1 2 3 
+
+   link for understanding https://www.youtube.com/watch?v=9ovJVBsZPyU
+
+   j(n,k)=(j(n-1,k)+k)%n
+*/
+
 int solve(int n,int k){
     if(n==1)return 0;
     
     return (solve(n-1,k)+k)%n;
 }
+
+// iterative solution 
+    int solve(int n, int k) {
+       int ans=0;
+       for(int i=2;i<=n;i++){
+           ans=(ans+k)%i;
+           
+       }
+       return ans+1;
+    }
+
 int main()
 {
 
