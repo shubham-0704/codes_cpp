@@ -134,10 +134,12 @@ void solve(vector<int>v) {
     }
 ```
 ## 7.max area of rectangle in binary matrix
+```
 0 1 1 0      0 1 1 0 --h1
 1 1 1 1  ->  1 2 2 1 --h2
 1 1 1 1      2 3 3 2 --h3
 1 1 0 0      3 4 0 0 --h4 
+```
 
 pass h1 h2 h3 h4 by getmaxarea or maximum area of histogram i.e above question and max of all will be ans
 
