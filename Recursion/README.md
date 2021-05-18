@@ -358,7 +358,8 @@ int solve(int n,int k,vector<int>&v,int index){
 
    link for understanding https://www.youtube.com/watch?v=9ovJVBsZPyU
 
-   j(n,k)=(j(n-1,k)+k)%n
+   j(n,k)=(j(n-1,k)+k)%n   and j(1,k)=0 --> for 0 based index
+   j(n,k)=(j(n-1,k)+k+1)%n+1 and j(1,k)=1 --> for 1 based index
 */
 
 int solve(int n,int k){
