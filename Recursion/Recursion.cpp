@@ -9,7 +9,6 @@ void print1_n(int n){
     if (n<=0) return;
     print1_n(n-1);
     cout<<n<<" ";
-
 }
 ----------------------------
 // print n to 1
@@ -129,7 +128,6 @@ void solve(stack<int>& s,int size){
     int temp =s.top();s.pop();
     solve(s,size-2);
     s.push(temp);
- 
 }
 
 ----------------------------------------
@@ -294,7 +292,7 @@ void solve(int open ,int close ,string op,vector<string> &v){
     if(open ==0 && close ==0){
         v.push_back(op);return;
     }
-    if(open==0){
+    if(open!=0){
         solve(open-1,close,op+"(",v);
     }
     if(close>open)solve(open,close-1,op+")",v);
