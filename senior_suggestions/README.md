@@ -6,10 +6,11 @@
 * should look good 
 * key terms in cv -- algo ds codechecf codeforces id linkeding profile 
 * watch aranv cv roast
-* se Latex to make cv 
+* use Latex to make cv 
 > linkedin pe referal magante rahna 
 <br>
-tcs  codevta , public sapients / hckerearth ,codenation competition of hiring 
+tcs  codevta , public sapients / hackerearth ,codenation competition of hiring
+
 # website to find job
 * elitmus / amcat
 # Projects 
