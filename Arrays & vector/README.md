@@ -5,6 +5,9 @@ int * arr = new int[n]; // heap allocated
 vector<int>v; // dynamic allocated
 
 int count[26]={0}; // making all zeros
+
+fill(arr,arr+n,1) // fill with value
+fill(v.begin()+2,v.end()-2,2) //same as above
 ```
 
 ```cpp
