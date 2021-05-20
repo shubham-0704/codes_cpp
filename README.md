@@ -1,4 +1,4 @@
 # Ds and Algo
 
-* [Recursion](Recursion)
+* [Recursion](Recursion/README.md)
 * Arrays
