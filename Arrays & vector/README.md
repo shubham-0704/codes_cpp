@@ -3,6 +3,8 @@
 int arr[n]; // stack allocated
 int * arr = new int[n]; // heap allocated
 vector<int>v; // dynamic allocated
+
+int count[26]={0}; // making all zeros
 ```
 
 ```cpp
