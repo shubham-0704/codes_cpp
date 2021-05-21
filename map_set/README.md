@@ -189,3 +189,33 @@ void explainUnorderedMap() {
 	// same as set and unordered_Set difference. 
 }
 ```
+
+
+
+## 1.majority element (Moore's Voting Algorithm) O(n) time o(1) space
+https://practice.geeksforgeeks.org/problems/majority-element-1587115620/1
+```cpp
+    int majorityElement(int arr[], int size)
+    {
+        
+        //finding the candidate 
+        int count=0;
+        int me=-1;
+        for(int i=0;i<size;i++){
+            if(me!= arr[i] and count==0){
+                me=arr[i];
+                count++;
+            }
+            else if(me==arr[i])count++;
+            else {
+                count--;
+            }
+        }
+        // checking for the frequency
+        count =0;
+        for(int i=0;i<size;i++){
+            if(me==arr[i])count++;
+        }
+        return count>size/2? me:-1;
+    }
+```
