@@ -21,6 +21,10 @@ bool comp(pair<int,int>p1, pair<int,int>p2) {
     // it according to first element but in descending 
 
 	sort(a, a+n ,comp); 
+    // another method
+    sort(v.begin(), v.end(), [](pair<int, int> a, pair<int, int> b){
+        return a.second < b.second;
+    });
 	// {4,1}, {2, 1}, {1, 2}}; 
 ```
 
