@@ -115,7 +115,7 @@ string decodeHuffmanData(struct MinHeapNode* root, string binaryString)
     }
 ```
 
-## 4.6. Job Sequencing Problem 
+## 4.Job Sequencing Problem 
 * sort in decreasing order profit
 * make a slot and try to fill slots latest slot
 ```cpp
