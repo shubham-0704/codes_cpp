@@ -180,3 +180,93 @@ int utility(d, Node* head1, Node* head2)
     return -1
 }
 ```
+## full implemenation
+```cpp
+class llist{
+
+      //pointers maloc
+      // code run in 4 areas(text,global declartion,stack,heap)
+      //linked list implementaion
+      private:
+      struct node{
+      int data;
+      node* next;
+      };
+      node *head;
+      node *tail;
+
+      public:
+      llist(){
+      head=NULL;
+      tail=NULL;
+      }
+
+      void insert(int data){
+            node *temp=new node;
+            temp->data=data;
+            temp->next=NULL;
+            if(head==NULL){
+                  head=tail=temp;
+            }
+            else {
+                  tail->next=temp;
+                  tail=temp;
+            }
+
+      }
+      void p(){
+            node *ptr=head;
+            while(ptr!=NULL){
+                  cout<<ptr->data<<" ";
+
+                  ptr=ptr->next;
+            }
+            cout<<endl;
+      }
+      void inserthead(int data){
+             node *temp=new node;
+            temp->data=data;
+            temp->next=NULL;
+            if(head==NULL){
+                  head=tail=temp;
+            }
+            else {
+                  temp->next=head;
+                  head=temp;
+            }
+           
+      }
+      void dl(int n){
+            node *temp=head;
+            int cnt=0;
+           for(int i=1;i<n-1;i++){
+                 temp=temp->next;
+           }
+           if(temp==head){
+                 head=head->next;
+                 delete temp;
+           }
+           else {
+                 node *temp2=temp->next;
+                 temp->next=temp2->next;
+                 delete temp2;
+           }
+      }
+};
+
+int main(){
+  llist a,b;
+  a.insert(2);
+  a.insert(3);
+  a.inserthead(293);
+  a.insert(21);
+  a.inserthead(100);
+  a.p();
+  a.dl(3);
+  a.dl(1);
+  a.p();
+ 
+
+      return 0;
+}
+```
