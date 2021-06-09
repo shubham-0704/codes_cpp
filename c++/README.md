@@ -30,6 +30,10 @@ return 0;
 
 
 void explainExtra() {
+// usd in array questions
+  a^0=a;
+  a^a=0;
+
 
 	int num = 7; // 111 
 	int cnt = __builtin_popcount(); 
