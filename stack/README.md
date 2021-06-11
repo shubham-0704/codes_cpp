@@ -17,7 +17,6 @@ void explainStack() {
 	cout << st.empty();
 	stack<int>st1, st2;
 	st1.swap(st2);
-
 }
 ```
 ## 1.nearest greater to left 
