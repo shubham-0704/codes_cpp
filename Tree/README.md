@@ -4,7 +4,7 @@
 ```cpp
 struct Node{
     int data;
-    Node * left,right;
+    Node * left,*right;
     Node(int x){
         data=x;
         left=right=NULL;
@@ -145,7 +145,7 @@ void solve(Node *root){
     }
 }
 ```
-## 9.INsertion in BT
+## 9.Insertion in BT
 BFS when u find null push and break;
 ```cpp
 void insert(struct Node* temp, int key) 
@@ -247,6 +247,86 @@ void deletion(struct Node* root, int key)
 ```
 ## 11. LCA or Lowest Common Ancestor 
 ```cpp
+// O(3n) and space O(N)
+bool findPath(Node* root, vector<int>& path, int k)
+{
+    // base case
+    if (root == NULL)
+        return false;
+
+    // Store this node in path vector.
+    // The node will be removed if
+    // not in path from root to k
+    path.push_back(root->key);
+
+    // See if the k is same as root's key
+    if (root->key == k)
+        return true;
+
+    // Check if k is found in left or right sub-tree
+    if ((root->left && findPath(root->left, path, k)) || 
+        (root->right && findPath(root->right, path, k)))
+        return true;
+
+    // If not present in subtree rooted with root,
+    // remove root from path[] and return false
+    path.pop_back();
+
+    return false;
+}
+
+// Function to return LCA if node n1, n2 are
+// present in the given binary tree, otherwise
+// return -1
+int findLCA(Node* root, int n1, int n2)
+{
+    // to store paths to n1 and n2 from the root
+    vector<int> path1, path2;
+
+    // Find paths from root to n1 and root to n1.
+    // If either n1 or n2 is not present, return -1
+    if (!findPath(root, path1, n1) || !findPath(root, path2, n2))
+        return -1;
+
+    // Compare the paths to get the first
+    // different value
+    int i;
+
+    for (i = 0; i < path1.size() && i < path2.size(); i++)
+        if (path1[i] != path2[i])
+            break;
+
+    return path1[i - 1];
+}
+****************************************
+// if all elelemts are diffenrent and present in BT then otimised solution
+struct Node* findLCA(struct Node* root, int n1, int n2)
+{
+    // Base case
+    if (root == NULL)
+        return NULL;
+
+    // If either n1 or n2 matches with root's key, report
+    // the presence by returning root (Note that if a key is
+    // ancestor of other, then the ancestor key becomes LCA
+    if (root->key == n1 || root->key == n2)
+        return root;
+
+    // Look for keys in left and right subtrees
+    Node* left_lca = findLCA(root->left, n1, n2);
+    Node* right_lca = findLCA(root->right, n1, n2);
+
+    // If both of the above calls return Non-NULL,
+    // then one key is present in once subtree and
+    // other is present in other,
+    // So this node is the LCA
+    if (left_lca && right_lca)
+        return root;
+
+    // Otherwise check if left subtree or
+    // right subtree is LCA
+    return (left_lca != NULL) ? left_lca : right_lca;
+}
 
 ```
 ## 12. diameter of bt
@@ -265,4 +345,246 @@ void deletion(struct Node* root, int key)
       
       return max(ans,solve(root,ans));
     }
+```
+## 13.1 left  view
+```cpp
+// recursive
+// k=0 initially 
+void solve(struct node *root,map<int,int>&mp,int k){
+    if(root==NULL)return ;
+
+    mp[k]=root->data;
+    solve(root->right,mp,k+1);
+    solve(root->left,mp,k+1);
+
+}
+// my solution
+vector<int> leftView(Node *root)
+{
+   // Your code here
+   vector<int>v;
+   if(root==NULL)return v;
+   queue<Node *>q;
+   q.push(root);
+   q.push(NULL);
+   Node *curr;
+   while(q.size()>0 ){
+       while(q.front()){
+           curr=q.front();
+           
+           if(curr->right)q.push(curr->right);
+           if(curr->left)q.push(curr->left);
+           q.pop();
+       }
+       v.push_back(curr->data);
+       q.pop();
+       if(q.size()==0)break;
+       q.push(NULL);
+   }
+   return v;
+}
+
+// BFS
+void leftViewUtil(Node root) 
+{ 
+      // Declare a queue for Level order Traversal
+      queue<Node*> q;
+  
+    if (root == NULL) 
+        return; 
+
+    // Push root 
+    q.push(root); 
+
+    // Delimiter 
+    q.push(NULL); 
+
+    while (!q.empty()) { 
+        Node* temp = q.front(); 
+
+        if (temp) { 
+
+            // Prints first node 
+            // of each level 
+            print temp->data;
+
+            // Push children of all nodes at 
+            // current level 
+            while (q.front() != NULL) { 
+
+                // If left child is present 
+                // push into queue 
+                if (temp->left) 
+                    q.push(temp->left); 
+
+                // If right child is present 
+                // push into queue 
+                if (temp->right) 
+                    q.push(temp->right); 
+
+                // Pop the current node 
+                q.pop(); 
+
+                temp = q.front(); 
+            } 
+
+            // Push delimiter 
+            // for the next level 
+            q.push(NULL); 
+        } 
+
+        // Pop the delimiter of 
+        // the previous level 
+        q.pop(); 
+    } 
+} 
+
+```
+## 13.2 Right view
+```cpp
+// recursive
+// k=0 initially 
+void solve(struct node *root,map<int,int>&mp,int k){
+    if(root==NULL)return ;
+
+    mp[k]=root->data;
+    solve(root->left,mp,k+1);
+    solve(root->right,mp,k+1);
+
+   
+}
+// BFS 
+same as above just print element present at last of that level
+    vector<int> rightView(Node *root)
+    {
+       // Your Code here
+       vector<int>v;
+       queue<Node *>q;
+       if(root==NULL)return v;
+       q.push(root);q.push(NULL);
+       Node * curr;
+       while(q.size()>0){
+           while(q.front()){
+               curr=q.front();
+               q.pop();
+               if(curr->left)q.push(curr->left);
+               if(curr->right)q.push(curr->right);
+           }
+           v.push_back(curr->data);
+           q.pop();
+          if( q.size()==0)break;
+          q.push(NULL);
+       }
+       return v;
+    }
+```
+## 13.3 top  view
+```cpp
+    vector<int> topView(Node *root)
+    {
+        //Your code here
+        if(root==NULL)return {};
+        vector<int>v;
+        map<int,int>mp;
+        queue<pair<Node *,int>>q;
+        q.push({root,0});
+        Node *curr;
+        pair<Node *,int>tp;
+        while(q.size()>0){
+           tp= q.front();
+           curr=tp.first;
+           if(mp.find(tp.second)==mp.end())mp[tp.second]=curr->data;
+           if(curr->left)q.push({curr->left,tp.second-1});
+           if(curr->right)q.push({curr->right,tp.second+1});
+           q.pop();
+        }
+        for(auto i:mp)v.push_back(i.second);
+        
+        return v;
+        
+    }
+```
+## 13.4 bottom  view
+```cpp
+same as top view
+vector <int> bottomView(Node *root)
+{
+   // Your Code Here
+   if(root==NULL)return {};
+   vector<int>v;
+   map<int,int>mp;
+   queue<pair<Node *,int>>q;
+   q.push({root,0});
+   pair<Node*,int>tp;
+   Node *curr;
+   while(q.size()>0){
+       tp=q.front();q.pop();
+       curr=tp.first;
+       mp[tp.second]=curr->data;
+       
+       if(curr->left)q.push({curr->left,tp.second-1});
+       if(curr->right)q.push({curr->right,tp.second+1});
+       
+   }
+   for(auto i:mp)v.push_back(i.second);
+   return v;
+}
+```
+
+## 14.Convert a Binary Tree into its Mirror Tree
+mirror image of binary tree
+```cpp
+void mirror(struct Node* node) 
+{
+    if (node == NULL) 
+        return
+    else
+    {
+        struct Node* temp
+         
+        /* Recur for subtrees */
+        mirror(node->left)
+        mirror(node->right)
+     
+        /* swap the pointers in this node */
+        temp     = node->left
+        node->left = node->right
+        node->right = temp
+    }
+}
+```
+
+## 15.Convert a given Binary Tree to Doubly Linked List
+```cpp
+// A simple recursive function to convert a given Binary tree to Doubly
+// Linked List
+// root --> Root of Binary Tree
+// head --> Pointer to head node of created doubly linked list
+void BinaryTree2DoubleLinkedList(node *root, node **head)
+{
+    // Base case
+    if (root == NULL) 
+        return
+ 
+    // Initialize previously visited node as NULL. This is
+    // static so that the same value is accessible in all recursive
+    // calls
+    static node* prev = NULL
+ 
+    // Recursively convert left subtree
+    BinaryTree2DoubleLinkedList(root->left, head)
+ 
+    // Now convert this node
+    if (prev == NULL)
+        *head = root
+    else
+    {
+        root->left = prev
+        prev->right = root
+    }
+    prev = root
+ 
+    // Finally convert right subtree
+    BinaryTree2DoubleLinkedList(root->right, head)
+}
 ```
