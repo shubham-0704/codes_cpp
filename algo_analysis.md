@@ -14,3 +14,11 @@ binary search
 => log(n) >= log(2^k) == k log(2)
 => k <= log(n)
 ``` 
+
+```
+1 + 1/2 + 1/3 +... + 1/n-1 +1/n <= log(n)
+
+proof :
+
+∫1/x   integratin 1/x from 1 to n gives log(n)
+```
