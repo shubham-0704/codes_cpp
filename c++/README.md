@@ -2,7 +2,11 @@
 //header file
 #include<bits/stdc++.h>
 #include<iostream>
-#define f(i,a,n) for(int i=a;i<n;i++)
+#define f(i,a,n) for(int i=a;i<n;i++) //macros
+#define ll long long 
+#define debug(x) cout<<#x<<" "<<x<<endl;
+
+//typedef is used for renaming
 typedef long long ll;
 typedef vector<int> v;
 using namespace std;
@@ -22,17 +26,40 @@ sizeof()// size in bytes
 int main(){
 	abs() 
 	ternary operator   sattemt ? true satament : false satament;
+
 	remainder(a,b) -> for floating points also
-     fmin(),fmax(),max(),min(),swap()
+  fmin(),fmax(),max(),min(),swap()
+
 	getline(cin,variable);   
 return 0;
 }
 
+```cpp
+//dynamic memory allocation allocated in heap memory
+data_type * malloc/calloc(size * sizeof(data_type));
+int *ptr = malloc(n *sizeof(int));
+free(ptr)
+calloc do same as malloc just initalize all valu to 0
+
+int *a -new int[10];
+delete [] a;
+
+// for variable 
+delete var;
+```
+
+```cpp
+// exception handling
+try catch throw
+```
 
 void explainExtra() {
 // usd in array questions
   a^0=a;
   a^a=0;
+  n-1 them all right most of right most 1 is reversd
+  12 = 1100;
+  11 = 1011;
 
 
 	int num = 7; // 111 
@@ -58,6 +85,41 @@ void explainExtra() {
 	int maxi = *max_element(a,a+n); 
 }
 ```
+# algo 
+* sort(first_iterator, last_iterator) — for sorting.
+* binary_search(first_iterator, last_iterator,x) — for searching element
+* reverse(first_iterator, last_iterator) – to reverse
+* *max_element (first_iterator, last_iterator) – to find the maximum element
+* *min_element (first_iterator, last_iterator) – to find the minimum element
+* accumulate(first_iterator, last_iterator, initial value of sum) – Does the summation
+* count(first_iterator, last_iterator,x) – to count the occurrences of x
+* find(first_iterator, last_iterator, x) – checks if element is present or not.
+* lower_bound(first_iterator, last_iterator, x) – returns an iterator pointing to the first element in the range [first,last) which has a value not less than ‘x’.
+* upper_bound(first_iterator, last_iterator, x) – returns an iterator pointing to the first element in the range [first,last)  which has a value greater than ‘x’.
+
+# cmath
+* cmath- pow(), sqrt(), round(), sin(), cos(), tan(), floor(), ceil(), abs().
+```cpp
+ways to remove duplicates
+Just using vector, sort + unique
+
+sort( vec.begin(), vec.end() );
+vec.erase( unique( vec.begin(), vec.end() ), vec.end() );
+
+Convert to set (manually)
+
+set<int> s;
+unsigned size = vec.size();
+for( unsigned i = 0; i < size; ++i ) s.insert( vec[i] );
+vec.assign( s.begin(), s.end() );
+
+Convert to set (using a constructor)
+
+set<int> s( vec.begin(), vec.end() );
+vec.assign( s.begin(), s.end() );  
+```
+
+if number is samll like it uses only 10 bits then two such data can be inserted in single number 
 ## struct 
 ```cpp
 class student{
