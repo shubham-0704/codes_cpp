@@ -283,6 +283,7 @@ https://practice.geeksforgeeks.org/problems/find-missing-and-repeating2512/1#
 # 16.Peak element 
 https://practice.geeksforgeeks.org/problems/peak-element/1#
 ```cpp
+// showing wrong on some test cases
     int peakElement(int arr[], int n)
     {
        // Your code here
@@ -300,6 +301,19 @@ https://practice.geeksforgeeks.org/problems/peak-element/1#
               j=mid-1;
           }
        }
+    }
+    
+   /// better soltion
+       int findPeakElement(vector<int>& arr) {
+       int i=0,j=arr.size()-1;
+        
+        while(i<j){
+            int mid=(i+j)/2;
+            
+            if(arr[mid]<arr[mid+1])i=mid+1;
+            else j=mid;
+        }
+        return i;
     }
 
 ```
