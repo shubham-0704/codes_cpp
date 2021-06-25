@@ -144,6 +144,21 @@ void solve(Node *root){
         }
     }
 }
+
+// in above while loop this code is also can be used
+        if(root==NULL)return v;
+        Node *curr=root;
+          while(st.size() || curr){
+            v.push_back(curr->data);
+            
+            if(curr->right)st.push(curr->right);
+            curr=curr->left;
+            
+            if(curr==NULL && st.size()){
+                curr=st.top();
+                st.pop();
+            }
+        }
 ```
 ## 9.Insertion in BT
 BFS when u find null push and break;
