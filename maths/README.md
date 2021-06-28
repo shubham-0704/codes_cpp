@@ -1,10 +1,12 @@
 # maths
 ```cpp
 1. (a+b)%c = (a%c+b%c)%c
-2. (a?b)%c = ((a%c)?(b%c))%c
-3. (a?b)%c = ((a%c)?(b%c)+c)%c
+2. (a*b)%c = ((a%c)*(b%c))%c
+3. (a-b)%c = ((a%c)-(b%c)+c)%c  or  
+    (a-b)%c = ((a%c)-(b%c))%c  then check if(ans <0) ans+=c;
 4. (a/b)%c = ((a%c)?(d%c))%c
 In the last property above, d is the multiplicative modulo inverse of b and c.
+d= pow(b,c-2)  where c should be prime.
 ```
 ## isprime
 ```cpp
