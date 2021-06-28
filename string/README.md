@@ -118,7 +118,9 @@ use hashed value to check if it matces then only it check for match;
 void rb(string p,string text){
     int hasp=0;
     // creating hash of pattern search you can create any type  of hash 
-    //here we use ascii sum of pattter u can also use  summation  of  pattern[i]*d^i
+    //here we use ascii sum of pattter u can also use  summation  of  pattern[i]*d^i   
+    // here d should be greater that pattern length and should be prime to reduce 
+    // collision and take mod with sum varibale d to solve integer overflow
     // this will improve the time complexity
     for(int i=0;i<p.size();i++)hasp+=p[i]; 
     int j=p.size()+1;
