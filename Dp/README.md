@@ -2,6 +2,19 @@
 * memoization(top - down)
 * Tabulation (Bottom-UP)
 write recursvie memomize it then write itterative solution
+
+ * some questions
+  * fib(n)
+  * LCS 
+  * Longest increasing subsequence -  O(n^2) and O(nlog(n))
+  * min cost path 
+  * coin change (no permuation)
+  * 0-1 knapsack
+  * edit distance
+  * Equal Average Partition 
+  * MCM
+
+
 # knapsack and its variation
 ## 1.0-1 Knapsack
 https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1#
@@ -568,11 +581,128 @@ https://practice.geeksforgeeks.org/problems/palindromic-patitioning4845/1
         }
         return dp[i][j]=res;
     }
+
+// another way
+int sol(string &s,int i,int j){
+    if(i>=j)return 0;
+    
+    int ans=INT_MAX;
+    for(int k= i+1;k<=j;k++){
+        int t;
+          if(isp(s,i,k-1)){
+            if(isp(s,k,j))return 1;
+             else 
+             t = 1 + sol(s,k,j); 
+          }
+        ans=min(ans,t);
+    }
+    return ans;
+}
+int palindromePartitioning(string str) {
+    // Write your code here
+    int i=0;
+    int j=str.size()-1;
+    if(isp(str,i,j))return 0;
+    
+    return sol(str,i,j);
+}
 ```
 ## 3.Evaluate Expression to True Boolean Parenthesization
 https://practice.geeksforgeeks.org/problems/boolean-parenthesization5610/1
 ```cpp
+// i =0 j= N-1;
+// memomize it with 3d vector or map
+int sol(string &s ,int i ,int j , bool istrue){
+    if(i>j)return 0;
 
+    if(i==j){
+        if(istrue)return s[i]=='T';
+        else return s[i]=='F';
+    }
+    int ans =0;
+
+    for(int k= i+1;i<=j-1;k+=2){
+        int lt = sol(s,i,k-1,1);
+        int lf =sol(s,i,k-1,0);
+        int rt = sol(s,k+1,j,1);
+        int rf = sol(s,k+1,j,0);
+
+        if(s[k]=='&'){
+            if(istrue){
+                ans+= lt*rt;
+            }
+            else ans +=lt*rf +lf *rt + lf *rf;
+        }
+        else if(s[k]=='|'){
+            if(istrue){
+                ans+= lt*rt +lt*rf + lf *rt;
+            }
+            else ans+= lf * rf;
+        }
+        else if(s[k]=='^'){
+            if(istrue){
+                ans+=lf *rt + lt *rf;
+            }
+            else {
+                ans+= lt *rt + lf *rf;
+            }
+        }
+    }
+    return ans;
+}
+```
+## 4.Scrambled string Recursive
+```cpp
+// memoization  use map   map<string,bool>mp;
+
+//key  = a + " "+ b;
+
+bool sol(string a,string b){
+    if(a==b)return 1;
+    if(a.size()<=1)return 0;
+
+    int n = a.size();
+    bool flag  =0;
+
+    for(int i= 1;i<n;i++){
+        bool cond1 =  sol(a.substr(0,i),b.substr(n-i,i)) && sol(a.substr(i,n-i),b.substr(0,n-i));
+        bool cond2 =  sol(a.substr(0,i),b.substr(0,i)) && sol(a.substr(i,n-i),b.substr(i,n-i));
+
+        if(cond1 || cond2){
+            flag =1;
+            break;
+        }
+    }
+
+    return flag;
+}
+
+bool scramble(string a,string b){
+    if(a.size()!= b.size())return 0;
+     
+     if(a==b)return 1;
+
+     return sol(a,b);
+}
+```
+## 5. Egg droping problem
+```cpp
+// memoization 
+
+int solve(int egg,int floor){
+    if(floor == 0 || floor ==1)return floor;
+
+    if(egg==1)return floor;
+
+    int ans =INT_MAX;
+
+    for(int k=1;k<=floor;k++){
+        int temp = 1+max(solve(egg-1,floor-1),solve(egg,floor-k));
+
+        ans =min(ans,temp);
+    }
+    return ans;
+}
 ```
 
 # DP on Trees
