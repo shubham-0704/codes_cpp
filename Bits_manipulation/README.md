@@ -40,6 +40,16 @@ while(n){         // when we subtrat 1 from n
         return dp;
     }
 ```
+## MSB in O(1)
+```cpp 
+    n = n | n >> 1;
+    n = n | n >> 2;
+    n = n | n >> 4;
+    n = n | n >> 8;
+    n = n | n >> 16;
+    n = n + 1;
+    return (n >> 1);
+```
 ## generate power set of string
 ```cpp
 // can be done easly with reursion

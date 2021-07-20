@@ -144,6 +144,69 @@ void solve(Node *root){
         }
     }
 }
+
+// in above while loop this code is also can be used
+        if(root==NULL)return v;
+        Node *curr=root;
+          while(st.size() || curr){
+            v.push_back(curr->data);
+            
+            if(curr->right)st.push(curr->right);
+            curr=curr->left;
+            
+            if(curr==NULL && st.size()){
+                curr=st.top();
+                st.pop();
+            }
+        }
+```
+## Iterative post order
+```cpp
+// using two stack
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int>ans;
+        if(root==NULL)return ans;
+        stack<TreeNode*>s1,s2;
+        
+        TreeNode *curr=root;
+        s1.push(root);
+        while(s1.size()){
+            curr=s1.top();s1.pop();
+            if(curr->left)s1.push(curr->left);
+            if(curr->right)s1.push(curr->right);
+            s2.push(curr);
+        }
+        
+        while(s2.size()){
+            ans.push_back(s2.top()->val);s2.pop();
+        }
+        return ans;
+    }
+    
+ // using one stack
+         vector<int>ans;
+        if(root==NULL)return ans;
+        stack<TreeNode*>st;
+        TreeNode * curr= root;
+        while(st.size() || curr){
+            while(curr){
+                st.push(curr);curr=curr->left;
+            }
+            curr=st.top();
+            if(st.top()->right==NULL){
+                st.pop();ans.push_back(curr->val);curr=NULL;
+            }else{
+                if(ans.size() && ans.back()==curr->right->val){
+                                ans.push_back(curr->val);curr=NULL;st.pop();
+                }
+                else{
+                    curr=curr->right;
+                }
+            }
+        }
+        
+        return ans;
+    }
 ```
 ## 9.Insertion in BT
 BFS when u find null push and break;
